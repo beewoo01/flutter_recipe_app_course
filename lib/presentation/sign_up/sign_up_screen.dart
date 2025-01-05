@@ -4,15 +4,20 @@ import 'package:flutter_recipe_app_course/core/presentation/components/input_fil
 import 'package:flutter_recipe_app_course/ui/color_styles.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   final void Function() onTapSignIn;
-  final void Function() onTapSignUp;
 
-  const SignInScreen({
+  const SignUpScreen({
     super.key,
-    required this.onTapSignUp,
     required this.onTapSignIn,
   });
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,44 +30,80 @@ class SignInScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const Text(
-                  "Hello,",
-                  style: TextStyles.headerTextBold,
+                  "Create an account",
+                  style: TextStyles.largeTextBold,
                 ),
-                const Text(
-                  "Welcome Back!",
-                  style: TextStyles.largeTextRegular,
+                SizedBox(
+                  width: 200,
+                  child: const Text(
+                    "Let’s help you set up your account, it won’t take long.",
+                    style: TextStyles.smallerTextRegular,
+                  ),
                 ),
                 const SizedBox(
-                  height: 57,
+                  height: 20,
+                ),
+                const InputField(
+                  label: "Name",
+                  placeholder: "Enter Name",
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 const InputField(
                   label: "Email",
                   placeholder: "Enter Email",
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 const InputField(
-                  label: "Enter Password",
+                  label: "Password",
                   placeholder: "Enter Password",
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "Forgot Password?",
-                  style: TextStyles.smallerTextRegular
-                      .copyWith(color: ColorStyles.secondary100),
+                const InputField(
+                  label: "Confirm Password",
+                  placeholder: "Retype Password",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _isChecked,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      side: const BorderSide(
+                        color: ColorStyles.secondary100,
+                      ),
+                      activeColor: ColorStyles.secondary100,
+                      onChanged: (value) {
+                        setState(() {
+                          _isChecked = value!;
+                        });
+                      },
+                    ),
+                    Text(
+                      "Accept terms & Condition",
+                      style: TextStyles.smallerTextRegular
+                          .copyWith(color: ColorStyles.secondary100),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 25,
                 ),
                 BigButton(
-                  "Sign In",
-                  onPressed: onTapSignIn,
+                  "Sign up",
+                  onPressed: () {},
                 ),
                 const SizedBox(
                   height: 20,
@@ -116,19 +157,19 @@ class SignInScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 55,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have and account? ",
+                      "Already a member? ",
                       style: TextStyles.smallerTextBold,
                     ),
                     GestureDetector(
-                      onTap: onTapSignUp,
+                      onTap: widget.onTapSignIn,
                       child: Text(
-                        "Sign up",
+                        "Sign In",
                         style: TextStyles.smallerTextBold.copyWith(
                           color: ColorStyles.secondary100,
                         ),

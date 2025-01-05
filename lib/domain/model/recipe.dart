@@ -1,4 +1,6 @@
-import 'package:flutter_recipe_app_course/core/domain/model/recipe_ingredient.dart';
+
+
+import 'package:flutter_recipe_app_course/domain/model/recipe_ingredient.dart';
 
 class RecipeModel {
   final List<Recipe> recipes;

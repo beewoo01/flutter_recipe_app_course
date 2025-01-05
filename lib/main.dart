@@ -7,6 +7,12 @@ import 'package:flutter_recipe_app_course/core/presentation/components/rating_bu
 import 'package:flutter_recipe_app_course/core/presentation/components/small_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/two_tab.dart';
 import 'package:flutter_recipe_app_course/core/presentation/dialogs/rating_dialog.dart';
+import 'package:flutter_recipe_app_course/core/routing/router.dart';
+import 'package:flutter_recipe_app_course/data/repository/mock_bookmark_repository_impl.dart';
+import 'package:flutter_recipe_app_course/data/repository/mock_recipe_repository_impl.dart';
+import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
+import 'package:flutter_recipe_app_course/presentation/saved_recipes/screen/saved_recipes_screen.dart';
 import 'package:flutter_recipe_app_course/presentation/sign_in/sign_in_screen.dart';
 import 'package:flutter_recipe_app_course/ui/color_styles.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
@@ -22,13 +28,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: const ColorScheme.light(),
         scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true
+        useMaterial3: true,
       ),
-      home: const SignInScreen(),
     );
   }
 }
@@ -123,4 +129,3 @@ class ComponentScreen extends StatelessWidget {
     );
   }
 }
-

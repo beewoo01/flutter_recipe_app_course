@@ -1,4 +1,4 @@
-import 'package:flutter_recipe_app_course/core/domain/model/ingredient.dart';
+import 'package:flutter_recipe_app_course/domain/model/ingredient.dart';
 
 class RecipeIngredient {
   final Ingredient ingredient;
