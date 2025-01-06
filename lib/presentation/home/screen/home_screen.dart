@@ -5,10 +5,12 @@ import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 class HomeScreen extends StatelessWidget {
   final String name;
+  final void Function() onTapSearchField;
 
   const HomeScreen({
     super.key,
     required this.name,
+    required this.onTapSearchField,
   });
 
   @override
@@ -18,7 +20,9 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
                 Column(
@@ -44,26 +48,42 @@ class HomeScreen extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: ColorStyles.secondary40,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      color: ColorStyles.secondary40,
+                      borderRadius: BorderRadius.circular(10)),
                   child: Image.asset('assets/image/face.png'),
                 ),
               ],
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             Row(
               children: [
-                Expanded(child: SearchInputField(placeholder: "Search recipe")),
-                const SizedBox(width: 20,),
+                Expanded(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: onTapSearchField,
+                    child: IgnorePointer(
+                      child: SearchInputField(
+                        placeholder: "Search recipe",
+                        isReadOnly: true,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
                 Container(
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
                       color: ColorStyles.primary100,
-                      borderRadius: BorderRadius.circular(10)
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Icon(
+                    Icons.tune,
+                    color: Colors.white,
                   ),
-                  child: const Icon(Icons.tune, color: Colors.white,),
                 ),
               ],
             )

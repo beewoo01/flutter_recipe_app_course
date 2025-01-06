@@ -3,6 +3,7 @@ import 'package:flutter_recipe_app_course/ui/color_styles.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 class SearchInputField extends StatelessWidget {
+  final bool isReadOnly;
   final String placeholder;
   final TextEditingController? controller;
 
@@ -10,6 +11,7 @@ class SearchInputField extends StatelessWidget {
     super.key,
     required this.placeholder,
     this.controller,
+    this.isReadOnly = false,
   });
 
   @override
@@ -17,6 +19,7 @@ class SearchInputField extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextField(
+        readOnly: isReadOnly,
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(
