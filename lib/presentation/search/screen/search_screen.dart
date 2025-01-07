@@ -8,10 +8,12 @@ import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 class SearchScreen extends StatelessWidget {
   final SearchState state;
+  final void Function(String)? onChanged;
 
   const SearchScreen({
     super.key,
     required this.state,
+    this.onChanged,
   });
 
   @override
@@ -35,9 +37,10 @@ class SearchScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: const SearchInputField(
+                  child: SearchInputField(
                     placeholder: "Search recipe",
-                    isReadOnly: true,
+                    isReadOnly: false,
+                    onChanged: onChanged,
                   ),
                 ),
                 const SizedBox(
@@ -59,9 +62,28 @@ class SearchScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              'Recent Search',
-              style: TextStyles.normalTextBold,
+
+            /// 기령이 회사 사람들
+            /// 대다수가 마치고 남아서 공부함 프로그램 만지고 하다가 간다.
+            /// 빨리가면 8시 늦게가면 10시까지도 만들기도 한다.
+            /// 일이 아니라 자기개발식으로 만든다.
+            /// 정확하게 하는게 앱개발
+            /// 테니스 용품 테니스 관련 개발하고 만드는거
+            /// 업무 시간 외에 자기가 하고싶은거 한다.
+
+            Row(
+              children: [
+                Text(
+                  state.searchTitle,
+                  style: TextStyles.normalTextBold,
+                ),
+                Spacer(),
+                Text(state.resultsCount,
+                  style: TextStyles.smallerTextRegular.copyWith(
+                    color: ColorStyles.gray3,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
