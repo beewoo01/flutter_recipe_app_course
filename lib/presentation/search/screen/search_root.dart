@@ -25,11 +25,7 @@ class SearchRoot extends StatelessWidget {
               isScrollControlled: true,
               builder: (context) {
                 return SearchFilterSheet(
-                  state: FilterState(
-                    time: 'Newest',
-                    rate: 4,
-                    category: 'Local Dish',
-                  ),
+                  state: viewModel.state.filterState,
                   onChangeFilter: (FilterState state) {
                     viewModel.onChangeFilter(state);
                     Navigator.pop(context);
