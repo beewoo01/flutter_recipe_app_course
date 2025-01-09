@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app_course/domain/filter/filter_state.dart';
 import 'package:flutter_recipe_app_course/domain/repository/recent_search_recipe_repository.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/search/search_state.dart';
@@ -36,17 +37,22 @@ class SearchViewModel with ChangeNotifier {
     notifyListeners();
     print(query);
 
-
     final recipes = await _searchRecipesUseCase.execute(query);
 
     _state = state.copyWith(
-      recipes: recipes,
-      isLoading: false,
-      searchTitle: 'Search Result',
-      resultsCount: '${recipes.length} results'
-    );
+        recipes: recipes,
+        isLoading: false,
+        searchTitle: 'Search Result',
+        resultsCount: '${recipes.length} results');
 
     notifyListeners();
+  }
+
+  void onChangeFilter(FilterState filterState) async {
+    _state = state.copyWith(filterState: filterState);
+    notifyListeners();
+
+    print(state.toString());
 
   }
 }
