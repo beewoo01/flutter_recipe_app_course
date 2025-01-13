@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app_course/core/di/di_setup.dart';
 import 'package:flutter_recipe_app_course/core/routing/route_paths.dart';
+import 'package:flutter_recipe_app_course/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_view_model.dart';
 import 'package:flutter_recipe_app_course/presentation/home/screen/home_screen.dart';
 
@@ -20,7 +21,6 @@ class _HomeRootState extends State<HomeRoot> {
   late HomeViewModel viewModel;
   StreamSubscription? eventSubscription;
 
-
   @override
   void initState() {
     super.initState();
@@ -28,13 +28,11 @@ class _HomeRootState extends State<HomeRoot> {
 
     eventSubscription = viewModel.eventStream.listen((event) {
       log(event.toString());
-      if(mounted) {
+      if (mounted) {
         final snackBar = SnackBar(content: Text(event.toString()));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-
     });
-
   }
 
   @override
@@ -49,9 +47,15 @@ class _HomeRootState extends State<HomeRoot> {
       builder: (context, snapshot) {
         return HomeScreen(
           state: viewModel.state,
-          name: "Artemion",
-          onTapSearchField: () => context.push(RoutePaths.search),
-          onSelectCategory: (String category) => viewModel.onSelectCategory(category),
+          onAction: (HomeAction action) {
+            if(action is OnTapSearchField) {
+              context.push(RoutePaths.search);
+              return;
+            }
+
+            viewModel.onAction(action);
+
+          },
         );
       },
       listenable: viewModel,

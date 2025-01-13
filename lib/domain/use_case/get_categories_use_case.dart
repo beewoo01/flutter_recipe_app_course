@@ -12,7 +12,6 @@ class GetCategoriesUseCase {
   }) : _recipeRepository = recipeRepository;
 
   Future<Result<List<String>, NetworkError>> execute() async {
-
     try {
       final recipes = await _recipeRepository.getRecipes();
       return Result.success(

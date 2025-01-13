@@ -11,8 +11,10 @@ import 'package:flutter_recipe_app_course/domain/repository/recent_search_recipe
 import 'package:flutter_recipe_app_course/domain/repository/recipe_repository.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_dishes_by_category_use_case.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/get_new_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_case.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/toggle_bookmark_recipe_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_view_model.dart';
 import 'package:flutter_recipe_app_course/presentation/saved_recipes/saved_recipes_view_model.dart';
 import 'package:flutter_recipe_app_course/presentation/search/search_view_model.dart';
@@ -40,8 +42,6 @@ void diSetup() {
     MockRecentSearchRecipeRepositoryImpl(localStorage: getIt()),
   );
 
-
-
   //UseCase
   getIt.registerSingleton<GetSavedRecipesUseCase>(
     GetSavedRecipesUseCase(
@@ -57,22 +57,25 @@ void diSetup() {
     ),
   );
 
-  getIt.registerSingleton(
-    GetCategoriesUseCase(
-      recipeRepository: getIt(),
-    ),
-  );
+  getIt.registerSingleton(GetCategoriesUseCase(recipeRepository: getIt()));
 
-  getIt.registerSingleton(
-    GetDishesByCategoryUseCase(
-      recipeRepository: getIt(),
-    ),
-  );
+  getIt.registerSingleton(GetDishesByCategoryUseCase(
+    recipeRepository: getIt(),
+    bookmarkRepository: getIt(),
+  ));
+
+  getIt.registerSingleton(GetNewRecipesUseCase(recipeRepository: getIt()));
+
+  getIt.registerSingleton(ToggleBookmarkRecipeUseCase(
+    bookmarkRepository: getIt(),
+    recipeRepository: getIt(),
+  ));
 
   //ViewModel
   getIt.registerFactory<SavedRecipesViewModel>(
     () => SavedRecipesViewModel(
       getSavedRecipesUseCase: getIt(),
+      toggleBookmarkRecipeUseCase: getIt(),
     ),
   );
 
@@ -87,6 +90,8 @@ void diSetup() {
     () => HomeViewModel(
       getCategoriesUseCase: getIt(),
       getDishesByCategoryUseCase: getIt(),
+      getNewRecipesUseCase: getIt(),
+      toggleBookmarkRecipeUseCase: getIt(),
     ),
   );
 }

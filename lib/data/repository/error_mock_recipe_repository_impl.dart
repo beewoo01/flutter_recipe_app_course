@@ -20,7 +20,7 @@ class ErrorMockRecipeRepositoryImpl implements RecipeRepository {
 
   @override
   Future<List<Recipe>> getRecipes() async {
-    throw Exception();
+    //throw Exception();
     //const SocketException('인터넷 문제');
     final recipes = await _recipeDataSource.getRecipes();
     return recipes.map((e) => Recipe.fromJson(e)).toList();

@@ -1,32 +1,21 @@
-class Ingredient {
-  final int id;
-  final String name;
-  final String image;
 
-  Ingredient({
-    required this.id,
-    required this.name,
-    required this.image,
-  });
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  factory Ingredient.fromJson(Map<String, dynamic> json) {
-    return Ingredient(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      image: json['image'] as String,
-    );
-  }
+part 'ingredient.freezed.dart';
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'image': image,
-    };
-  }
+part 'ingredient.g.dart';
 
-  @override
-  String toString() {
-    return 'Ingredient(id: $id, name: $name)';
-  }
+@freezed
+class Ingredient with _$Ingredient {
+  const factory Ingredient({
+    required int id,
+    required String name,
+    required String image,
+  }) = _Ingredient;
+
+
+
+  factory Ingredient.fromJson(Map<String, dynamic> json) =>
+      _$IngredientFromJson(json);
 }

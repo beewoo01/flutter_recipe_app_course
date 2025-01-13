@@ -12,9 +12,10 @@ class GetSavedRecipesUseCase {
   })  : _recipeRepository = recipeRepository,
         _bookmarkRepository = bookmarkRepository;
 
-  Future<List<Recipe>> execute() async {
-    final ids = await _bookmarkRepository.getBookmarkIds();
+  Stream<List<Recipe>> execute() async* {
     final recipes = await _recipeRepository.getRecipes();
-    return recipes.where((e) => ids.contains(e.id)).toList();
+    await for (final ids in _bookmarkRepository.bookmarkIdsStream()) {
+      yield recipes.where((e) => ids.contains(e.id)).toList();
+    }
   }
 }
