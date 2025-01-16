@@ -52,7 +52,7 @@ class _SmallButtonState extends State<SmallButton> {
           children: [
             Text(
               widget.text,
-              style: widget.textStyle.copyWith(
+              style: TextStyles.smallerTextBold.copyWith(
                 color: Colors.white,
               ),
             ),
