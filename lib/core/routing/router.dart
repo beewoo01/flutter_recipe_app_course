@@ -19,16 +19,18 @@ final router = GoRouter(
   // initialLocation: RoutePaths.test,
   routes: [
     GoRoute(
-        path: RoutePaths.ingredient,
-        builder: (context, state) {
-          final recipeId = int.parse(state.pathParameters['recipeId']!);
-          return IngredientRoot(
-            recipeId: recipeId,
-          );
-        }),
+      path: RoutePaths.ingredient,
+      builder: (context, state) {
+        final recipeId = int.parse(state.pathParameters['recipeId']!);
+        return IngredientRoot(
+          recipeId: recipeId,
+        );
+      },
+    ),
     GoRoute(
-        path: RoutePaths.test,
-        builder: (context, state) => const ComponentScreen()),
+      path: RoutePaths.test,
+      builder: (context, state) => const ComponentScreen(),
+    ),
     GoRoute(
       path: RoutePaths.splash,
       builder: (context, state) => SplashScreen(

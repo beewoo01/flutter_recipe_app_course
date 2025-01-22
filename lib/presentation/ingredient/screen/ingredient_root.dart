@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app_course/core/di/di_setup.dart';
-import 'package:flutter_recipe_app_course/core/presentation/components/share_dialog.dart';
+import 'package:flutter_recipe_app_course/core/presentation/dialogs/rating_dialog.dart';
+import 'package:flutter_recipe_app_course/core/presentation/dialogs/share_dialog.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/ingredient_action.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/ingredient_view_model.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/screen/ingredient_screen.dart';
@@ -34,13 +35,41 @@ class IngredientRoot extends StatelessWidget {
                               link: "app.Recipe.co/jollof_rice",
                               onTapCopyLink: (link) {
                                 viewModel.onAction(
-                                    IngredientAction.onTapShareMenu(link));
+                                  IngredientAction.onTapShareMenu(link),
+                                );
+
                                 Navigator.pop(context);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Link Copied",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                );
                               },
                             );
                           });
                     case IngredientMenu.rate:
-                    // TODO: Handle this case.
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return RatingDialog(
+                              title: 'Rate recipe',
+                              actionName: 'Send',
+                              onChange: (int score) {
+                                viewModel.onAction(
+                                  IngredientAction.onTapShareRateRecipe(
+                                    viewModel.state.recipe!,
+                                    score,
+                                  ),
+                                );
+
+                                Navigator.pop(context);
+                              },
+                            );
+                          });
                     case IngredientMenu.review:
                     // TODO: Handle this case.
                     case IngredientMenu.unSave:

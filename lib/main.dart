@@ -66,7 +66,6 @@ class ComponentScreen extends StatelessWidget {
                   print('Hello');
                   return RatingDialog(
                     title: "Rate recipe",
-                    score: 3,
                     actionName: "send",
                     onChange: (score) {
                       print(score);
